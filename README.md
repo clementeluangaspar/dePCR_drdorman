@@ -31,7 +31,7 @@ The workflow also requires a feature annotation file containing primer-template 
 Expected columns:
 
 ```text
-feature template    primer
+feature  template    primer
 ```
 
 
