@@ -22,7 +22,7 @@ I divide the analysis into five RMarkdown files. Each file documents one major s
 File:
 
 * [Source RMarkdown file](workflow/01_preprocessing_bash.Rmd)
-* [Rendered HTML report](docs/01_preprocessing_bash.html)
+* [Rendered HTML report](https://clementeluangaspar.github.io/docs/01_preprocessing_bash.html)
 
 This file documents the preprocessing steps. I downloaded the SRA files, retrieved SRA/SRR metadata, converted SRA files to FASTQ, merged paired-end reads, and converted merged FASTQ files to FASTA/FNA format.
 
