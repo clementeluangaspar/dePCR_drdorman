@@ -7,15 +7,18 @@ This repository contains a reproducible workflow for processing DePCR sequencing
 
 Reproducible DePCR sequencing workflow for preprocessing, quality control, primer-template counting, data thinning, negative binomial modeling, and generation of figures and tables.
 
+
 ## Overview
 
 I use this workflow to process sequencing data from the DePCR experiment. The analysis starts with raw SRA files, converts them to FASTQ, merges paired-end reads, performs quality control, converts merged reads to FASTA/FNA format, and counts primer-template combinations.
 
 After preprocessing, I use the count matrix to evaluate sequencing and merging metrics, apply data thinning, and model counts using negative binomial regression with covariate-dependent overdispersion.
 
+
 ## Workflow organization
 
 I divide the analysis into five RMarkdown files. Each file documents one major step of the workflow.
+
 
 ## 0. Expected input
 
@@ -53,6 +56,7 @@ Main steps:
 4. Merge paired-end reads using VSEARCH.
 5. Convert merged FASTQ files to FASTA/FNA.
 
+
 ### 2. Metrics, counts, and quality control
 
 File:
@@ -72,6 +76,7 @@ Main steps:
 5. Check basic count distributions and sample-level metrics.
 6. .........
 
+
 ### 3. Data thinning
 
 File:
@@ -87,6 +92,7 @@ Main steps:
 1. Load the primer-template count matrix.
 2. ....
 
+
 ### 4. Negative binomial modeling with covariate-dependent overdispersion
 
 File:
@@ -101,7 +107,8 @@ Main steps:
 
 1. Load the thinned count data.
 2. .....
-3. 
+
+
 ### 5. Figures and tables
 
 File:
@@ -116,6 +123,7 @@ Main steps:
 
 1. Load processed results.
 2. ....
+
 
 ## License
 
