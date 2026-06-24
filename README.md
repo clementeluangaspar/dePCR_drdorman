@@ -1,5 +1,5 @@
 # Data thinning and Negative Binomial with covariate-dependent overdispersion for dePCR dataset.
-# DePCR Sequencing Workflow
+# dePCR Sequencing Workflow
 
 This repository contains a reproducible workflow for processing DePCR sequencing data, generating primer-template count matrices, applying data thinning, and fitting negative binomial models with covariate-dependent overdispersion.
 
