@@ -1,0 +1,222 @@
+---
+title: "01 - DePCR preprocessing"
+author: "Luan Gaspar Clemente"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# Purpose
+
+I use this document to describe the preprocessing workflow for the dePCR sequencing data. I download the SRA files, retrieve the SRA/SRR metadata, convert SRA files to FASTQ, merge paired-end reads, run quality control, summarize read counts, convert merged reads to FASTA/FNA, and generate the primer-template count matrix.
+
+# 1. Download sequencing files
+
+I download all sequencing files associated with the BioProject accession `PRJNA513137` and `PRJNA1072695` using `prefetch`.
+
+```{bash}
+prefetch PRJNA513137 -O path_to_files
+prefetch PRJNA1072695 -O path_to_files
+
+```
+
+# 2. Retrieve SRA and SRR run metadata
+
+I download the run information table from NCBI.
+
+```{bash}
+curl -L "https://trace.ncbi.nlm.nih.gov/Traces/sra-db-be/runinfo?acc=PRJNA513137" \
+  -o /mnt/c/files/sra_runinfo_PRJNA513137.csv
+  curl -L "https://trace.ncbi.nlm.nih.gov/Traces/sra-db-be/runinfo?acc=PRJNA1072695" \
+  -o /mnt/c/files/sra_runinfo_PRJNA1072695.csv
+```
+
+# 3. Convert SRA files to FASTQ
+
+I create the output folders for FASTQ files and temporary files. Then, I recursively search for `.sra` files and convert each one to FASTQ using `fasterq-dump`.
+
+```{bash}
+mkdir -p /mnt/c/files/fastq
+mkdir -p /mnt/c/files/tmp
+
+find /mnt/c/files -name "*.sra" -print0 |
+while IFS= read -r -d '' file
+do
+  fasterq-dump "$file" \
+    -O /mnt/c/files/fastq \
+    -t /mnt/c/files/tmp \
+    -e 8 \
+    -p
+done
+```
+
+# 4. Merge paired-end reads with VSEARCH
+
+PEAR is no longer maintained as an open-source option, so I use VSEARCH to merge paired-end reads.
+
+I create folders for merged outputs and log files. Then, I identify all forward reads ending in `_1.fastq`, find the matching reverse read ending in `_2.fastq`, and merge each pair.
+
+```{bash}
+mkdir -p /mnt/c/files/merged_vsearch
+mkdir -p /mnt/c/files/merge_logs
+
+for r1 in /mnt/c/files/fastq/*_1.fastq
+do
+  r2="${r1/_1.fastq/_2.fastq}"
+  base=$(basename "$r1" _1.fastq)
+  if [[ -f "$r2" ]]
+  then
+    echo "Merging Sample $base"
+    vsearch \
+      --fastq_mergepairs "$r1" \
+      --reverse "$r2" \
+      --fastqout "/mnt/c/files/merged_vsearch/${base}.assembled.fastq" \
+      --fastqout_notmerged_fwd "/mnt/c/files/merged_vsearch/${base}.notmerged_R1.fastq" \
+      --fastqout_notmerged_rev "/mnt/c/files/merged_vsearch/${base}.notmerged_R2.fastq" \
+      --threads 4 \
+      > "/mnt/c/files/merge_logs/${base}.vsearch.log" 2>&1
+  else
+    echo "ERROR: missing reverse read for $base"
+  fi
+done
+```
+
+# 5. Run FastQC and MultiQC
+
+I run FastQC on the merged reads. Then, I use MultiQC to summarize all FastQC reports in a single report.
+
+```{bash}
+mkdir -p /mnt/c/files/fastqc_reports
+
+fastqc /mnt/c/files/merged_vsearch/*.assembled.fastq \
+  -o /mnt/c/files/fastqc_reports
+
+source ~/multiqc_env/bin/activate
+
+multiqc /mnt/c/files/fastqc_reports \
+  -o /mnt/c/files/fastqc_reports
+```
+
+# 6. Count merged and unmerged reads
+
+I summarize the number of merged and unmerged reads for each sample. 
+
+I write one row per sample in the output file with the following columns:
+
+- `sample`
+- `merged`
+- `not_merged_R1`
+- `not_merged_R2`
+
+```{bash}
+echo -e "sample\tmerged\tnot_merged_R1\tnot_merged_R2" > /mnt/c/files/merge_summary.txt
+
+for file in /mnt/c/files/merged_vsearch/*.assembled.fastq
+do
+  sample=$(basename "$file" .assembled.fastq)
+  merged=$(($(wc -l < "/mnt/c/files/merged_vsearch/${sample}.assembled.fastq") / 4))
+  notR1=$(($(wc -l < "/mnt/c/files/merged_vsearch/${sample}.notmerged_R1.fastq") / 4))
+  notR2=$(($(wc -l < "/mnt/c/files/merged_vsearch/${sample}.notmerged_R2.fastq") / 4))
+  echo -e "${sample}\t${merged}\t${notR1}\t${notR2}"
+done >> /mnt/c/files/merge_summary.txt
+```
+
+# 7. Convert merged FASTQ files to FASTA/FNA
+
+I convert the merged FASTQ files to FASTA format using `seqtk`. I save the converted files with the `.fna` extension.
+
+```{bash}
+mkdir -p /mnt/c/files/MergedFASTAFiles
+
+for f in /mnt/c/files/merged_vsearch/*.assembled.fastq
+do
+  s=$(basename "$f" .assembled.fastq)
+  seqtk seq -A "$f" > "/mnt/c/files/MergedFASTAFiles/$s.fna"
+done
+```
+
+# 8. Count primer-template features
+
+I create a Bash script to count primer-template features in the merged FNA files.
+
+I use `list_templates.txt` as the feature annotation table. The script reads a file with columns similar to:
+
+```text
+feature    template    primer
+```
+
+For each sample, I count how many reads contain the expected primer-template pattern. I write the output table with samples as rows and features as columns.
+
+```{bash}
+nano ~/depcr/count_features.sh
+```
+
+Inside `count_features.sh`, I use:
+
+```{bash}
+#!/usr/bin/env bash
+
+cd "$HOME/depcr/MergedFASTAFiles"
+
+FEATURES="$HOME/depcr/list_templates.txt"
+OUT="$HOME/depcr/FinalCount_samples_rows.tsv"
+
+printf "sample" > "$OUT"
+
+awk -F '\t' 'NR > 1 {gsub(/\r|"/,"",$1); printf "\t%s",$1} END {printf "\n"}' "$FEATURES" >> "$OUT"
+
+for T in *.fna
+do
+    sample=$(basename "$T" .fna)
+    echo "contando $sample"
+    printf "%s" "$sample" >> "$OUT"
+    awk -F '\t' 'NR > 1 {
+        gsub(/\r|"/,"",$2)
+        gsub(/\r|"/,"",$3)
+        print $2 "\t" $3
+    }' "$FEATURES" | while IFS="$(printf '\t')" read Template Primer
+    do
+        count=$(grep -Ec "$Primer.*$Template" "$T")
+        printf "\t%s" "$count" >> "$OUT"
+    done
+    printf "\n" >> "$OUT"
+done
+```
+
+After saving the script, I make it executable and run it.
+
+```{bash}
+chmod +x ~/depcr/count_features.sh
+bash ~/depcr/count_features.sh
+```
+
+# 9. Main output files
+
+This preprocessing workflow generates the following main outputs:
+
+```text
+/mnt/c/files/sra_runinfo_PRJNA513137.csv
+/mnt/c/files/fastq/
+/mnt/c/files/merged_vsearch/
+/mnt/c/files/merge_logs/
+/mnt/c/files/fastqc_reports/
+/mnt/c/files/merge_summary.txt
+/mnt/c/files/MergedFASTAFiles/
+~/depcr/FinalCount_samples_rows.tsv
+```
+
+# 10. Notes
+
+I do not trim primer sequences before counting because the primer identity is part of the feature definition. The count matrix depends on detecting the primer-template combination in each merged read.
