@@ -154,7 +154,7 @@ I create a Bash script to count primer-template features in the merged FNA files
 I use `list_templates.txt` as the feature annotation table. The script reads a file with columns similar to:
 
 ```text
-feature    template    primer
+feature template    primer
 ```
 
 For each sample, I count how many reads contain the expected primer-template pattern. I write the output table with samples as rows and features as columns.
