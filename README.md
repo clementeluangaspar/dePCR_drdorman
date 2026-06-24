@@ -17,6 +17,26 @@ After preprocessing, I use the count matrix to evaluate sequencing and merging m
 
 I divide the analysis into five RMarkdown files. Each file documents one major step of the workflow.
 
+## 0. Expected input
+
+The workflow uses sequencing data from the following SRA BioProjects:
+
+* [PRJNA513137](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA513137)
+* [PRJNA1072695](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA1072695)
+
+The workflow also requires a feature annotation file containing primer-template combinations, such as:
+
+```text
+list_templates.txt
+```
+
+Expected columns:
+
+```text
+feature    template    primer
+```
+
+
 ### 1. Preprocessing
 
 File:
@@ -97,37 +117,6 @@ Main steps:
 
 1. Load processed results.
 2. ....
-
-## Expected input
-
-The workflow uses sequencing data from the following SRA BioProjects:
-
-* [PRJNA513137](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA513137)
-* [PRJNA1072695](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA1072695)
-
-The workflow also requires a feature annotation file containing primer-template combinations, such as:
-
-```text
-list_templates.txt
-```
-
-Expected columns:
-
-```text
-feature    template    primer
-```
-
-## Expected output
-
-The main preprocessing output is a count matrix with samples as rows and primer-template features as columns:
-
-```text
-FinalCount_samples_rows.tsv
-```
-
-Downstream outputs include:
-
-1. .....
 
 ## License
 
