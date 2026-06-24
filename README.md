@@ -25,7 +25,7 @@ File:
 workflow/01_preprocessing_bash.Rmd
 ```
 
-This file documents the preprocessing steps. I downloaded the SRA files, retrieved SRA/SRR metadata, converted SRA files to FASTQ, mergde paired-end reads, and converted merged FASTQ files to FASTA/FNA format.
+This file documents the preprocessing steps. I downloaded the SRA files, retrieved SRA/SRR metadata, converted SRA files to FASTQ, merged paired-end reads, and converted merged FASTQ files to FASTA/FNA format.
 
 Main steps:
 
@@ -43,7 +43,7 @@ File:
 workflow/02_metrics_qc_counts.Rmd
 ```
 
-This file summarizes preprocessing metrics and quality control results. We calculate the number of merged and unmerged reads, run FastQC and MultiQC, and ......
+This file summarizes preprocessing metrics and quality control results. It calculates the number of merged and unmerged reads, run FastQC and MultiQC, and ......
 
 Main steps:
 
@@ -62,7 +62,7 @@ File:
 workflow/03_data_thinning.Rmd
 ```
 
-This file applies data thinning to the count matrix. We split the observed counts into conditionally related components that can support model fitting, validation, and/or selective inference strategies.
+This file applies data thinning to the count matrix. It splits the observed counts into conditionally related components that can support model fitting, validation, and/or selective inference strategies.
 
 Main steps:
 
@@ -98,14 +98,13 @@ Main steps:
 
 1. Load processed results.
 2. ....
-3. 
+
 ## Expected input
 
-The workflow uses sequencing data from the SRA project:
+The workflow uses sequencing data from the following SRA BioProjects:
 
-```text
-PRJNA513137 and PRJNA1072695
-```
+* [PRJNA513137](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA513137)
+* [PRJNA1072695](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA1072695)
 
 The workflow also requires a feature annotation file containing primer-template combinations, such as:
 
