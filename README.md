@@ -26,14 +26,16 @@ The workflow uses sequencing data from the following SRA BioProjects:
 
 The workflow also requires a feature annotation file containing primer-template combinations, such as:
 
-```text
-list_templates.txt
-```
+[`files/list_templates.txt`](files/list_templates.txt)
+
+Download:
+
+[Download `list_templates.txt`](https://raw.githubusercontent.com/clementeluangaspar/dePCR_drdorman/main/files/list_templates.txt)
 
 Expected columns:
 
 ```text
-feature    template    primer
+feature template    primer
 ```
 
 
