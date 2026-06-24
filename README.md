@@ -23,6 +23,7 @@ File:
 
 - [RMarkdown file](workflow/01_preprocessing_bash.Rmd)
 - [HTML](https://clementeluangaspar.github.io/dePCR_drdorman/01_preprocessing_bash.html)
+
 This file documents the preprocessing steps. I downloaded the SRA files, retrieved SRA/SRR metadata, converted SRA files to FASTQ, merged paired-end reads, and converted merged FASTQ files to FASTA/FNA format.
 
 Main steps:
