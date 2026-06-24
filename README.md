@@ -20,7 +20,7 @@ After preprocessing, I use the count matrix to evaluate sequencing and merging m
 I divide the analysis into five RMarkdown files. Each file documents one major step of the workflow.
 
 
-## 0. Expected input
+## 0. Input
 
 The workflow uses sequencing data from the following SRA BioProjects:
 
