@@ -150,41 +150,41 @@ Candidate shape models include:
 
 ```text
 shape ~ 1
-shape ~ Temp
-shape ~ group
 shape ~ p3_status
 shape ~ mid_status
 shape ~ p5_status
+shape ~ p3_status + mid_status + p5_status
 shape ~ p3_base
 shape ~ mid_base
 shape ~ p5_base
-shape ~ p3_status + mid_status + p5_status
+shape ~ p3_base + mid_base + p5_base
+shape ~ group
+shape ~ Temp
 shape ~ Temp + p3_status
 shape ~ Temp + mid_status
 shape ~ Temp + p5_status
+shape ~ Temp + p3_status + mid_status + p5_status
 shape ~ Temp + p3_base
 shape ~ Temp + mid_base
 shape ~ Temp + p5_base
+shape ~ Temp + p3_base + mid_base + p5_base
 shape ~ Temp + group
-shape ~ Temp + p3_status + mid_status + p5_status
 ```
 
-Models are fitted with `brms` using the No-U-Turn Sampler. Model complexity is retained only when the chains converge and the additional terms improve predictive performance.
+Models are fitted with `brms` using the No-U-Turn Sampler.
 
 ## Model diagnostics and comparison
 
-A model is not interpreted solely because `brm()` completed successfully. The workflow examines:
+The workflow examines:
 
-- split-chain \(\widehat{R}\);
-- bulk and tail effective sample sizes;
-- divergent transitions;
-- maximum tree-depth warnings;
-- posterior predictive behavior;
+- Split-chain \(\widehat{R}\);
+- Bulk and tail effective sample sizes;
+- Divergent transitions;
+- Maximum tree-depth warnings;
+- Posterior predictive behavior;
 - Pareto-\(k\) diagnostics from leave-one-out cross-validation.
 
-Models with substantial convergence problems are excluded from biological interpretation and predictive comparison until they are reparameterized or refitted.
-
-Among the supplied dePCR model runs, the simpler models with constant shape or shape depending individually on mismatch status showed substantially better convergence than several highly parameterized shape models. Models with `shape ~ group`, `shape ~ Temp + group`, and several PCR shape models displayed high \(\widehat{R}\) and very small effective sample sizes and therefore should not be interpreted in their current form.
+Models with substantial convergence problems are excluded from biological interpretation and predictive comparison.
 
 ## Held-out test evaluation
 
