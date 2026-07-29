@@ -85,35 +85,41 @@ Main steps:
 
 Counts are modeled using a negative binomial distribution with a log link.
 
-For observation \(i\),
+For observation $i$,
 
-\[
+$$
 Y_i \sim \mathrm{NegBinomial}(\mu_i, \phi_i),
-\]
+$$
 
-where \(\mu_i\) is the expected count and \(\phi_i\) is the negative binomial shape parameter. Under the parameterization used by `brms`,
+where $\mu_i$ is the expected count and $\phi_i$ is the negative binomial shape parameter. Under the parameterization used by `brms`,
 
-\[
+$$
 \mathrm{Var}(Y_i) = \mu_i + \frac{\mu_i^2}{\phi_i}.
-\]
+$$
 
 The mean model includes an offset for the total number of counted reads:
 
-\[
-\log(\mu_i) =
+$$
+\log(\mu_i)
+===========
+
 \log(\mathrm{total\ counted\ reads}_i)
-+ \mathbf{x}_i^\top\boldsymbol{\beta}.
-\]
++
+\mathbf{x}_i^\top\boldsymbol{\beta}.
+$$
 
 The offset converts the model from an analysis of absolute counts into an analysis of relative feature abundance while retaining the original count-scale likelihood.
 
 The shape parameter is modeled with a separate log-linear predictor:
 
-\[
-\log(\phi_i) = \mathbf{z}_i^\top\boldsymbol{\gamma}.
-\]
+$$
+\log(\phi_i)
+============
 
-A smaller value of \(\phi_i\) corresponds to greater extra-Poisson variation, whereas a larger value corresponds to lower overdispersion.
+\mathbf{z}_i^\top\boldsymbol{\gamma}.
+$$
+
+A smaller value of $\phi_i$ corresponds to greater extra-Poisson variation, whereas a larger value corresponds to lower overdispersion.
 
 ## Evaluated covariates
 
