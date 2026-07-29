@@ -100,10 +100,7 @@ $$
 The mean model includes an offset for the total number of counted reads:
 
 $$
-\log(\mu_i)
-===========
-
-\log(\mathrm{total\ counted\ reads}_i)
+\log(\mu_i) = \log(\mathrm{total\ counted\ reads}_i)
 +
 \mathbf{x}_i^\top\boldsymbol{\beta}.
 $$
@@ -113,10 +110,7 @@ The offset converts the model from an analysis of absolute counts into an analys
 The shape parameter is modeled with a separate log-linear predictor:
 
 $$
-\log(\phi_i)
-============
-
-\mathbf{z}_i^\top\boldsymbol{\gamma}.
+\log(\phi_i) = \mathbf{z}_i^\top\boldsymbol{\gamma}.
 $$
 
 A smaller value of $\phi_i$ corresponds to greater extra-Poisson variation, whereas a larger value corresponds to lower overdispersion.
@@ -196,44 +190,15 @@ Among the supplied dePCR model runs, the simpler models with constant shape or s
 
 The selected training model is evaluated on the two held-out replicates using:
 
-- posterior expected counts;
-- posterior predictive intervals;
-- root mean squared error;
-- mean absolute error;
+- Posterior expected counts;
+- Posterior predictive intervals;
+- Root mean squared error;
+- Mean absolute error;
 - Pearson correlation;
-- Spearman correlation;
-- empirical coverage of the 95% posterior predictive interval;
-- total and mean log predictive density.
+- Empirical coverage of the 95% posterior predictive interval;
+- Total and mean log predictive density.
 
 Observed-versus-predicted plots are generated on both the original and logarithmic scales.
-
-## Repository structure
-
-```text
-dePCR_drdorman/
-├── README.md
-├── LICENSE
-├── files/
-│   ├── list_templates.txt
-│   ├── dePCR_feature_metadata.xlsx
-│   ├── dePCR_experiment_features.txt
-│   └── other required metadata files
-├── workflow/
-│   ├── 01_preprocessing_bash.Rmd
-│   └── 02_depcr_analysis.Rmd
-├── results/
-│   ├── metadata/
-│   ├── model_fits/
-│   ├── model_summaries/
-│   ├── predictions/
-│   ├── tables/
-│   └── figures/
-└── docs/
-    ├── 01_preprocessing_bash.html
-    └── 02_depcr_analysis.html
-```
-
-Large raw FASTQ, FNA, and fitted-model files do not need to be committed to GitHub. The repository should instead preserve the scripts, small metadata files, summaries, figures, and instructions needed to recreate them.
 
 ## Main preprocessing outputs
 
@@ -273,52 +238,6 @@ Bayesian fit objects and text summaries may be stored separately:
 results/model_fits/*.rds
 results/model_summaries/*_summary.txt
 ```
-
-## Software
-
-The workflow uses:
-
-### Command-line tools
-
-- NCBI SRA Toolkit
-- VSEARCH
-- FastQC
-- MultiQC
-- seqtk
-- standard Bash utilities
-
-### R packages
-
-- `readxl`
-- `ShortRead`
-- `dplyr`
-- `tidyr`
-- `ggplot2`
-- `brms`
-- `posterior`
-- `loo`
-- `matrixStats`
-
-## Reproducibility notes
-
-File paths in the analysis document are defined in a single setup section and should be adapted to the local project directory.
-
-The random seed used for replicate partitioning and Bayesian fitting is:
-
-```r
-10231991
-```
-
-The workflow saves the selected training-replicate identifiers so that the same split can be reused in later analyses.
-
-Computationally intensive model-fitting chunks are controlled with the RMarkdown parameter:
-
-```yaml
-params:
-  run_models: false
-```
-
-Set `run_models: true` when the Bayesian models need to be fitted again. When it is `false`, the report reads previously saved model objects and summaries.
 
 ## License
 
