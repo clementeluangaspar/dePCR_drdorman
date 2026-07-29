@@ -177,12 +177,10 @@ Models are fitted with `brms` using the No-U-Turn Sampler.
 
 The workflow examines:
 
-- Split-chain \(\widehat{R}\);
+- R-hat;
 - Bulk and tail effective sample sizes;
-- Divergent transitions;
-- Maximum tree-depth warnings;
 - Posterior predictive behavior;
-- Pareto-\(k\) diagnostics from leave-one-out cross-validation.
+- Pareto diagnostics from leave-one-out cross-validation.
 
 Models with substantial convergence problems are excluded from biological interpretation and predictive comparison.
 
