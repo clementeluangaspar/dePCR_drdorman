@@ -6,7 +6,7 @@ This repository contains a reproducible workflow for processing dePCR sequencing
 
 The workflow starts with public sequencing data from NCBI SRA and proceeds through paired-end read merging, quality control, primer-template feature counting, metadata integration, data partitioning, Bayesian model fitting, model comparison, and out-of-sample validation.
 
-The principal objective is to quantify how primer-template sequence configurations and mismatch characteristics affect observed read counts and count variability.
+The principal objective is to quantify how mismatch characteristics affect observed read counts and count variability.
 
 ## Data sources
 
@@ -18,10 +18,10 @@ The workflow uses sequencing data from the following NCBI BioProjects:
 The analysis also uses:
 
 - SRA run-information tables for both BioProjects;
-- the supplementary sample metadata distributed with the original study;
-- a primer-template feature annotation table;
-- an experiment-specific feature table defining the expected features for each experiment;
-- a feature metadata table containing mismatch status and nucleotide identity at the evaluated primer positions.
+- Supplementary sample metadata distributed with the original study;
+- A primer-template feature annotation table;
+- An experiment-specific feature table defining the expected features for each experiment;
+- A feature metadata table containing mismatch status and nucleotide identity at the evaluated primer positions.
 
 An example feature annotation file is provided at:
 
@@ -53,10 +53,10 @@ Main steps:
 3. Convert SRA files to paired FASTQ files.
 4. Merge paired-end reads with VSEARCH.
 5. Run FastQC and summarize the reports with MultiQC.
-6. count merged and unmerged reads.
-7. convert merged FASTQ files to FASTA/FNA.
-8. count primer-template features in each sample.
-9. generate the sample-by-feature count matrix.
+6. Count merged and unmerged reads.
+7. Convert merged FASTQ files to FASTA/FNA.
+8. Count primer-template features in each sample.
+9. Generate the sample-by-feature count matrix.
 
 The primer sequences are not trimmed before feature counting because primer identity is part of the feature definition. Each feature is defined by the simultaneous occurrence of the expected primer and template pattern in a merged read.
 
@@ -71,21 +71,15 @@ This document describes the statistical analysis performed after construction of
 
 Main steps:
 
-1. combine NCBI run metadata, locally observed read counts, and supplementary sample metadata;
-2. verify that downloaded read totals agree with the published metadata;
-3. calculate the total number and proportion of reads assigned to primer-template features;
-4. reshape the count matrix from sample-wide to feature-long format;
-5. retain the primer-template combinations expected for each experiment;
-6. attach primer mismatch and nucleotide annotations;
-7. construct sequence-group and mismatch-status covariates;
-8. select experiment A10 and separate PCR and dePCR observations;
-9. split biological or technical replicates into training and test sets;
-10. fit Bayesian negative binomial models for the expected count;
-11. allow the negative binomial shape parameter to depend on experimental covariates;
-12. assess MCMC convergence and sampling quality;
-13. compare supported models with approximate leave-one-out cross-validation;
-14. evaluate the selected model on held-out replicates;
-15. generate observed-versus-predicted figures and performance summaries.
+1. Combine NCBI run metadata and supplementary sample metadata;
+2. Calculate the total number and proportion of reads assigned to primer-template features;
+3. Select experiment A10 and separate PCR and dePCR observations;
+4. Split biological or technical replicates into training and test sets;
+5. Fit Bayesian negative binomial models;
+6. Assess MCMC convergence and sampling quality;
+7. Compare supported models with approximate leave-one-out cross-validation;
+8. Evaluate the selected model on held-out replicates;
+9. Generate observed-versus-predicted figures and performance summaries.
 
 ## Statistical model
 
