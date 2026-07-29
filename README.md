@@ -179,7 +179,6 @@ The workflow examines:
 
 - R-hat;
 - Bulk and tail effective sample sizes;
-- Posterior predictive behavior;
 - Pareto diagnostics from leave-one-out cross-validation.
 
 Models with substantial convergence problems are excluded from biological interpretation and predictive comparison.
