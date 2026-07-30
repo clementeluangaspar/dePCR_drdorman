@@ -1,0 +1,30 @@
+ Family: negbinomial 
+  Links: mu = log; shape = log 
+Formula: Counts ~ offset(log_total_counted) + Temp + group 
+         shape ~ Temp + p3_status + mid_status + p5_status
+   Data: exp_10_depcr_train (Number of observations: 120) 
+  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 4000
+
+Regression Coefficients:
+                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept                   -1.55      0.04    -1.59    -1.47 1.53        7       29
+shape_Intercept             16.21      9.55     4.07    33.22 1.56        7       31
+Temp55C                      0.03      0.04    -0.04     0.08 1.25       12      194
+groupA_G_C                  -0.41      0.04    -0.46    -0.32 1.53        7       30
+groupA_T_G                  -0.63      0.02    -0.66    -0.60 1.11       26      382
+groupA_A_C                  -1.14      0.06    -1.26    -1.08 1.53        7       31
+groupA_C_C                  -1.18      0.11    -1.39    -1.09 1.53        7       27
+groupA_T_A                  -0.48      0.03    -0.55    -0.44 1.53        7       30
+groupA_T_T                  -0.95      0.08    -1.10    -0.88 1.53        7       30
+groupC_T_C                  -1.08      0.08    -1.25    -1.01 1.53        7       33
+groupG_T_C                  -1.71      0.03    -1.77    -1.64 1.39        9       30
+groupT_T_C                  -1.29      0.21    -1.69    -1.13 1.53        7       28
+shape_Temp55C               -4.72      5.77   -17.11     4.10 1.54        7       31
+shape_p3_statusMismatch     -8.21      6.97   -23.84    -0.47 1.13       27      580
+shape_mid_statusMismatch    -7.00      7.03   -22.77     0.61 1.16       21      590
+shape_p5_statusMismatch     -6.06      7.13   -21.89     1.69 1.16       21      629
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).

@@ -1,0 +1,27 @@
+ Family: negbinomial 
+  Links: mu = log; shape = log 
+Formula: Counts ~ offset(log_total_counted) + Temp + group 
+         shape ~ p5_status
+   Data: exp_10_depcr_train (Number of observations: 120) 
+  Draws: 4 chains, each with iter = 6000; warmup = 1000; thin = 1;
+         total post-warmup draws = 20000
+
+Regression Coefficients:
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept                  -1.53      0.03    -1.59    -1.46 1.00     3998     7172
+shape_Intercept             4.37      0.18     4.01     4.70 1.00    17416    13981
+Temp55C                    -0.03      0.02    -0.06     0.00 1.00    16153    12781
+groupA_G_C                 -0.37      0.05    -0.46    -0.28 1.00     5891    10679
+groupA_T_G                 -0.62      0.04    -0.69    -0.55 1.00     4261     7879
+groupA_A_C                 -1.17      0.05    -1.26    -1.08 1.00     6274    10396
+groupA_C_C                 -1.24      0.05    -1.33    -1.14 1.00     6512    11299
+groupA_T_A                 -0.49      0.04    -0.56    -0.42 1.00     4377     8072
+groupA_T_T                 -0.99      0.04    -1.06    -0.92 1.00     4645     8332
+groupC_T_C                 -1.12      0.05    -1.22    -1.03 1.00     6444    10923
+groupG_T_C                 -1.69      0.05    -1.78    -1.59 1.00     6578    10859
+groupT_T_C                 -1.39      0.05    -1.49    -1.30 1.00     6421    10317
+shape_p5_statusMismatch     1.62      0.37     0.89     2.34 1.00    15414    14547
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
