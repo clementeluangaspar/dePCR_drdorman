@@ -1,0 +1,61 @@
+MEAN FORMULA:
+Counts ~ offset(log_total_counted) + (p3_status + mid_status + 
+    p5_status) * Temp + Exp
+<environment: 0x000002d252720510>
+
+SHAPE FORMULA:
+shape ~ Exp
+<environment: 0x000002d252720510>
+
+MODEL SUMMARY:
+ Family: negbinomial 
+  Links: mu = log; shape = log 
+Formula: Counts ~ offset(log_total_counted) + (p3_status + mid_status + p5_status) * Temp + Exp 
+         shape ~ Exp
+   Data: data_model (Number of observations: 1760) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
+
+Regression Coefficients:
+                           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                     -1.91      0.03    -1.97    -1.85 1.00     9721
+shape_Intercept                2.92      0.12     2.67     3.15 1.00     7269
+p3_statusMismatch             -0.50      0.02    -0.54    -0.45 1.00     9560
+mid_statusMismatch            -0.19      0.02    -0.24    -0.15 1.00     9326
+p5_statusMismatch             -0.28      0.02    -0.32    -0.23 1.00     9953
+Temp55C                        0.03      0.03    -0.03     0.10 1.00     8649
+ExpA10                        -0.14      0.02    -0.18    -0.09 1.00    10675
+ExpA27                        -0.77      0.03    -0.82    -0.71 1.00     8409
+ExpA64                        -1.56      0.03    -1.62    -1.51 1.00     7999
+p3_statusMismatch:Temp55C     -0.03      0.03    -0.09     0.02 1.00    11311
+mid_statusMismatch:Temp55C    -0.01      0.03    -0.07     0.04 1.00    10565
+p5_statusMismatch:Temp55C     -0.02      0.03    -0.08     0.03 1.00    11018
+shape_ExpA10                   0.71      0.17     0.38     1.04 1.00     9156
+shape_ExpA27                  -0.27      0.14    -0.55     0.02 1.00     7984
+shape_ExpA64                  -0.99      0.13    -1.24    -0.73 1.00     7513
+                           Tail_ESS
+Intercept                      8724
+shape_Intercept                7744
+p3_statusMismatch              8900
+mid_statusMismatch             8745
+p5_statusMismatch              8456
+Temp55C                        8315
+ExpA10                         8715
+ExpA27                         8319
+ExpA64                         8570
+p3_statusMismatch:Temp55C      8523
+mid_statusMismatch:Temp55C     8483
+p5_statusMismatch:Temp55C      8966
+shape_ExpA10                   8912
+shape_ExpA27                   8664
+shape_ExpA64                   8149
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+CONVERGENCE CHECK:
+STATUS: converged
+RHAT CUTOFF: 1.01
+MAX RHAT: 1.00096029049531
+NUMBER OF RHAT VALUES ABOVE CUTOFF: 0

@@ -1,0 +1,6 @@
+MODEL: model_076
+MEAN FORMULA: Counts ~ offset(log_total_counted) + (p3_base + mid_base + p5_base) * Temp + Exp
+SHAPE FORMULA: shape ~ (p3_base + mid_base + p5_base) * Temp + Exp
+STATUS: exceeded time
+Model exceeded the limit of 10 minutes.
+See log: C:/dePCR/new_results_08052026/model_076_run.log

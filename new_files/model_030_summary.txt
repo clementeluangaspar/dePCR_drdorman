@@ -1,0 +1,51 @@
+MEAN FORMULA:
+Counts ~ offset(log_total_counted) + (p3_base + mid_base) * Temp + 
+    Exp
+<environment: 0x000001e4b8796510>
+
+SHAPE FORMULA:
+shape ~ Exp
+<environment: 0x000001e4b8796510>
+
+MODEL SUMMARY:
+ Family: negbinomial 
+  Links: mu = log; shape = log 
+Formula: Counts ~ offset(log_total_counted) + (p3_base + mid_base) * Temp + Exp 
+         shape ~ Exp
+   Data: data_model (Number of observations: 1760) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
+
+Regression Coefficients:
+                  Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept            -2.09      0.02    -2.12    -2.05 1.00     8936     9696
+shape_Intercept       3.91      0.16     3.60     4.23 1.00     7239     7725
+p3_baseC             -0.20      0.03    -0.25    -0.15 1.00     9299     9284
+p3_baseG             -0.63      0.03    -0.68    -0.58 1.00     9034     9121
+p3_baseT             -0.35      0.03    -0.40    -0.30 1.00     8450     9082
+mid_baseC            -0.23      0.03    -0.29    -0.18 1.00     8338     8828
+mid_baseG             0.10      0.02     0.06     0.15 1.00     9451     9203
+mid_baseA            -0.10      0.02    -0.15    -0.05 1.00     9944     8661
+Temp55C               0.01      0.02    -0.03     0.05 1.00     7737     8025
+ExpA10               -0.11      0.02    -0.14    -0.08 1.00    13659     9294
+ExpA27               -0.92      0.02    -0.96    -0.88 1.00    10960     9199
+ExpA64               -1.76      0.02    -1.80    -1.72 1.00    10359     9286
+p3_baseC:Temp55C     -0.07      0.03    -0.13    -0.00 1.00    10395     8787
+p3_baseG:Temp55C      0.06      0.03    -0.00     0.13 1.00    10250     8708
+p3_baseT:Temp55C     -0.02      0.03    -0.09     0.04 1.00    10098     8396
+mid_baseC:Temp55C    -0.03      0.03    -0.09     0.04 1.00    10804     9501
+mid_baseG:Temp55C     0.00      0.03    -0.06     0.07 1.00    10242     8790
+mid_baseA:Temp55C    -0.02      0.03    -0.09     0.04 1.00    11051     9096
+shape_ExpA10          0.23      0.26    -0.28     0.74 1.00     7055     7966
+shape_ExpA27         -1.29      0.18    -1.65    -0.94 1.00     7569     8603
+shape_ExpA64         -1.97      0.17    -2.29    -1.64 1.00     7319     8168
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+CONVERGENCE CHECK:
+STATUS: converged
+RHAT CUTOFF: 1.01
+MAX RHAT: 1.00081447470343
+NUMBER OF RHAT VALUES ABOVE CUTOFF: 0

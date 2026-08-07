@@ -1,0 +1,86 @@
+MEAN FORMULA:
+Counts ~ offset(log_total_counted) + Temp + Exp
+<environment: 0x0000019de978c510>
+
+SHAPE FORMULA:
+shape ~ (p3_base + mid_base + p5_base) * Temp + Exp
+<environment: 0x0000019de978c510>
+
+MODEL SUMMARY:
+ Family: negbinomial 
+  Links: mu = log; shape = log 
+Formula: Counts ~ offset(log_total_counted) + Temp + Exp 
+         shape ~ (p3_base + mid_base + p5_base) * Temp + Exp
+   Data: data_model (Number of observations: 1760) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
+
+Regression Coefficients:
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -2.16      0.02    -2.20    -2.12 1.00    10435
+shape_Intercept             2.30      0.16     1.97     2.61 1.00     8682
+Temp55C                    -0.04      0.02    -0.07    -0.00 1.00    13234
+ExpA10                     -0.10      0.02    -0.15    -0.06 1.00    11138
+ExpA27                     -1.06      0.02    -1.11    -1.02 1.00    10691
+ExpA64                     -2.00      0.02    -2.05    -1.95 1.00     9432
+shape_p3_baseC              0.76      0.14     0.49     1.04 1.00    11162
+shape_p3_baseG             -0.56      0.14    -0.83    -0.28 1.00     9839
+shape_p3_baseT              0.13      0.14    -0.14     0.41 1.00    10240
+shape_mid_baseC             0.65      0.14     0.36     0.93 1.00     9484
+shape_mid_baseG             1.13      0.15     0.83     1.43 1.00    10741
+shape_mid_baseA             1.04      0.14     0.77     1.32 1.00     9992
+shape_p5_baseA              1.15      0.14     0.87     1.43 1.00    10556
+shape_p5_baseG              1.00      0.15     0.71     1.29 1.00     9582
+shape_p5_baseT              0.46      0.15     0.16     0.76 1.00     9110
+shape_Temp55C              -0.15      0.18    -0.50     0.19 1.00     7401
+shape_ExpA10                0.48      0.17     0.14     0.82 1.00    10493
+shape_ExpA27               -0.93      0.16    -1.23    -0.62 1.00     9223
+shape_ExpA64               -2.02      0.15    -2.30    -1.73 1.00     8945
+shape_p3_baseC:Temp55C      0.34      0.20    -0.05     0.73 1.00    10406
+shape_p3_baseG:Temp55C      0.53      0.20     0.13     0.92 1.00     9377
+shape_p3_baseT:Temp55C      0.37      0.20    -0.03     0.76 1.00     9792
+shape_mid_baseC:Temp55C     0.08      0.19    -0.28     0.45 1.00    10064
+shape_mid_baseG:Temp55C    -0.14      0.21    -0.56     0.28 1.00    10387
+shape_mid_baseA:Temp55C     0.12      0.19    -0.24     0.50 1.00    10393
+shape_p5_baseA:Temp55C     -0.19      0.20    -0.58     0.19 1.00    11496
+shape_p5_baseG:Temp55C     -0.33      0.19    -0.69     0.04 1.00    10750
+shape_p5_baseT:Temp55C     -0.22      0.19    -0.59     0.15 1.00    10213
+                        Tail_ESS
+Intercept                   9072
+shape_Intercept             8665
+Temp55C                     8903
+ExpA10                      9123
+ExpA27                      9161
+ExpA64                      9094
+shape_p3_baseC              9572
+shape_p3_baseG              8827
+shape_p3_baseT              9072
+shape_mid_baseC             9080
+shape_mid_baseG             8542
+shape_mid_baseA             9712
+shape_p5_baseA              9764
+shape_p5_baseG              8910
+shape_p5_baseT              9108
+shape_Temp55C               8128
+shape_ExpA10                9454
+shape_ExpA27                8336
+shape_ExpA64                8777
+shape_p3_baseC:Temp55C      9419
+shape_p3_baseG:Temp55C      9236
+shape_p3_baseT:Temp55C      9106
+shape_mid_baseC:Temp55C     9602
+shape_mid_baseG:Temp55C     9360
+shape_mid_baseA:Temp55C     9500
+shape_p5_baseA:Temp55C      9738
+shape_p5_baseG:Temp55C      9783
+shape_p5_baseT:Temp55C      8957
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+CONVERGENCE CHECK:
+STATUS: converged
+RHAT CUTOFF: 1.01
+MAX RHAT: 1.000921737601
+NUMBER OF RHAT VALUES ABOVE CUTOFF: 0

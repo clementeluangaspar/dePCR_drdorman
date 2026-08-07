@@ -1,0 +1,99 @@
+MEAN FORMULA:
+Counts ~ offset(log_total_counted) + (p3_base + mid_base) * Temp + 
+    Exp
+<environment: 0x000001cbc677d510>
+
+SHAPE FORMULA:
+shape ~ (p3_base + mid_base) * Temp + Exp
+<environment: 0x000001cbc677d510>
+
+MODEL SUMMARY:
+ Family: negbinomial 
+  Links: mu = log; shape = log 
+Formula: Counts ~ offset(log_total_counted) + (p3_base + mid_base) * Temp + Exp 
+         shape ~ (p3_base + mid_base) * Temp + Exp
+   Data: data_model (Number of observations: 1760) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
+
+Regression Coefficients:
+                        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                  -2.12      0.02    -2.16    -2.08 1.00     7215
+shape_Intercept             3.62      0.21     3.21     4.04 1.00     6911
+p3_baseC                   -0.15      0.03    -0.20    -0.10 1.00     7906
+p3_baseG                   -0.57      0.03    -0.63    -0.51 1.00     7926
+p3_baseT                   -0.28      0.03    -0.33    -0.23 1.00     7551
+mid_baseC                  -0.21      0.03    -0.27    -0.15 1.00     8786
+mid_baseG                   0.16      0.03     0.11     0.21 1.00     7678
+mid_baseA                  -0.05      0.02    -0.10     0.00 1.00     8345
+Temp55C                     0.01      0.02    -0.04     0.06 1.00     6911
+ExpA10                     -0.13      0.02    -0.16    -0.10 1.00    16290
+ExpA27                     -0.93      0.02    -0.97    -0.89 1.00    10569
+ExpA64                     -1.85      0.02    -1.89    -1.81 1.00     7974
+p3_baseC:Temp55C           -0.06      0.03    -0.13    -0.00 1.00    10264
+p3_baseG:Temp55C            0.08      0.03     0.01     0.15 1.00    10139
+p3_baseT:Temp55C           -0.01      0.03    -0.07     0.05 1.00    10395
+mid_baseC:Temp55C          -0.03      0.03    -0.10     0.04 1.00    12232
+mid_baseG:Temp55C          -0.00      0.03    -0.06     0.06 1.00     9471
+mid_baseA:Temp55C          -0.02      0.03    -0.09     0.04 1.00    10395
+shape_p3_baseC              0.70      0.15     0.41     0.99 1.00     9306
+shape_p3_baseG              0.53      0.16     0.22     0.83 1.00     7281
+shape_p3_baseT              0.68      0.16     0.37     0.99 1.00     6673
+shape_mid_baseC             0.37      0.16     0.06     0.68 1.00     7799
+shape_mid_baseG             0.79      0.16     0.48     1.10 1.00     7052
+shape_mid_baseA             0.71      0.15     0.42     1.00 1.00     8501
+shape_Temp55C              -0.17      0.18    -0.52     0.19 1.00     4859
+shape_ExpA10               -0.05      0.27    -0.58     0.48 1.00     8077
+shape_ExpA27               -1.79      0.21    -2.21    -1.37 1.00     7816
+shape_ExpA64               -2.54      0.19    -2.92    -2.17 1.00     7521
+shape_p3_baseC:Temp55C      0.10      0.20    -0.30     0.49 1.00     9380
+shape_p3_baseG:Temp55C      0.06      0.21    -0.36     0.47 1.00     7641
+shape_p3_baseT:Temp55C      0.12      0.21    -0.29     0.53 1.00     7221
+shape_mid_baseC:Temp55C     0.18      0.21    -0.22     0.58 1.00     7821
+shape_mid_baseG:Temp55C     0.27      0.21    -0.14     0.69 1.00     7700
+shape_mid_baseA:Temp55C     0.16      0.20    -0.24     0.55 1.00     9124
+                        Tail_ESS
+Intercept                   8553
+shape_Intercept             8604
+p3_baseC                    8629
+p3_baseG                    8588
+p3_baseT                    8679
+mid_baseC                   9218
+mid_baseG                   9270
+mid_baseA                   8863
+Temp55C                     8601
+ExpA10                      9398
+ExpA27                      9371
+ExpA64                      8795
+p3_baseC:Temp55C            9324
+p3_baseG:Temp55C            9423
+p3_baseT:Temp55C            9543
+mid_baseC:Temp55C           9628
+mid_baseG:Temp55C           8391
+mid_baseA:Temp55C           8954
+shape_p3_baseC              9025
+shape_p3_baseG              8676
+shape_p3_baseT              8279
+shape_mid_baseC             8759
+shape_mid_baseG             8360
+shape_mid_baseA             9575
+shape_Temp55C               7607
+shape_ExpA10                8900
+shape_ExpA27                8465
+shape_ExpA64                8244
+shape_p3_baseC:Temp55C      9118
+shape_p3_baseG:Temp55C      8996
+shape_p3_baseT:Temp55C      8411
+shape_mid_baseC:Temp55C     9366
+shape_mid_baseG:Temp55C     8830
+shape_mid_baseA:Temp55C     9593
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+CONVERGENCE CHECK:
+STATUS: converged
+RHAT CUTOFF: 1.01
+MAX RHAT: 1.00092978203342
+NUMBER OF RHAT VALUES ABOVE CUTOFF: 0

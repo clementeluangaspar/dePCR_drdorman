@@ -1,0 +1,52 @@
+MEAN FORMULA:
+Counts ~ offset(log_total_counted) + (p3_status) * Temp + Exp
+<environment: 0x0000020b90728510>
+
+SHAPE FORMULA:
+shape ~ Exp
+<environment: 0x0000020b90728510>
+
+MODEL SUMMARY:
+ Family: negbinomial 
+  Links: mu = log; shape = log 
+Formula: Counts ~ offset(log_total_counted) + (p3_status) * Temp + Exp 
+         shape ~ Exp
+   Data: data_model (Number of observations: 1760) 
+  Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+         total post-warmup draws = 12000
+
+Regression Coefficients:
+                          Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                    -2.11      0.02    -2.16    -2.07 1.00     6693
+shape_Intercept               2.94      0.12     2.70     3.17 1.00     5825
+p3_statusMismatch            -0.35      0.02    -0.40    -0.31 1.00     6597
+Temp55C                       0.01      0.02    -0.03     0.05 1.00     6671
+ExpA10                       -0.12      0.02    -0.16    -0.07 1.00     6790
+ExpA27                       -0.97      0.02    -1.02    -0.92 1.00     6911
+ExpA64                       -1.81      0.02    -1.85    -1.76 1.00     6388
+p3_statusMismatch:Temp55C    -0.02      0.03    -0.08     0.03 1.00     6206
+shape_ExpA10                  0.82      0.17     0.48     1.15 1.00     6349
+shape_ExpA27                 -0.45      0.14    -0.72    -0.17 1.00     6194
+shape_ExpA64                 -1.24      0.13    -1.49    -0.97 1.00     6136
+                          Tail_ESS
+Intercept                     7842
+shape_Intercept               6608
+p3_statusMismatch             8089
+Temp55C                       7813
+ExpA10                        7870
+ExpA27                        8277
+ExpA64                        6857
+p3_statusMismatch:Temp55C     7794
+shape_ExpA10                  7793
+shape_ExpA27                  7160
+shape_ExpA64                  7220
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+CONVERGENCE CHECK:
+STATUS: converged
+RHAT CUTOFF: 1.01
+MAX RHAT: 1.00115821848692
+NUMBER OF RHAT VALUES ABOVE CUTOFF: 0
