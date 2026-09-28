@@ -115,43 +115,37 @@ Sequencing depth is accounted for using an offset rather than rarefying librarie
 
 ## Statistical model
 
-Feature counts are modeled using a negative binomial distribution:
+Feature counts are modeled using a negative binomial distribution.
 
-$$
-Y_i \sim \mathrm{NegBinomial}(\mu_i,\phi_i),
-$$
+For observation `i`:
 
-where $\mu_i$ is the expected count and $\phi_i$ is the negative binomial shape parameter.
+~~~text
+Y_i ~ NegBinomial(mu_i, phi_i)
+~~~
 
-Under the parameterization used by `brms`,
+where `mu_i` is the expected count and `phi_i` is the negative binomial shape parameter.
 
-$$
-\mathrm{Var}(Y_i)
-=
-\mu_i+\frac{\mu_i^2}{\phi_i}.
-$$
+Under the parameterization used by `brms`:
 
-For a fixed mean, smaller values of $\phi_i$ correspond to greater extra-Poisson variation, whereas larger values indicate lower residual overdispersion.
+~~~text
+Var(Y_i) = mu_i + mu_i^2 / phi_i
+~~~
+
+For a fixed mean, smaller values of `phi_i` correspond to greater extra-Poisson variation, whereas larger values indicate lower residual overdispersion.
 
 The mean model includes an offset for sequencing depth:
 
-$$
-\log(\mu_i)
-=
-\log(L_i)
-+
-\mathbf{x}_i^\top\boldsymbol{\beta},
-$$
+~~~text
+log(mu_i) = log(L_i) + x_i^T beta
+~~~
 
-where $L_i$ is the total number of reads assigned to the modeled primer-template features for the corresponding sequencing library.
+where `L_i` is the total number of reads assigned to the modeled primer-template features for the corresponding sequencing library.
 
 The shape parameter is modeled separately:
 
-$$
-\log(\phi_i)
-=
-\mathbf{z}_i^\top\boldsymbol{\gamma}.
-$$
+~~~text
+log(phi_i) = z_i^T gamma
+~~~
 
 This distributional specification allows predictors of expected abundance and predictors of residual variability to differ.
 
@@ -198,7 +192,7 @@ A total of 30 candidate models are evaluated separately for PCR and DePCR.
 The workflow evaluates the following variables:
 
 - `Exp`: experiment, with A10 as the reference level;
-- `Temp`: annealing temperature, with 45°C as the reference level;
+- `Temp`: annealing temperature, with 45C as the reference level;
 - `p3_status`: match or mismatch status at the 3' position;
 - `mid_status`: match or mismatch status at the middle position;
 - `p5_status`: match or mismatch status at the 5' position;
@@ -222,7 +216,7 @@ Candidate models are compared using Pareto-smoothed importance-sampling leave-on
 
 Model comparisons are based on differences in expected log predictive density (ELPD).
 
-More negative values of $\Delta$ELPD indicate worse predictive performance relative to the best-performing model.
+More negative values of `Delta ELPD` indicate worse predictive performance relative to the best-performing model.
 
 ## Final model
 
@@ -238,6 +232,29 @@ The final shape model is:
 
 ~~~text
 shape ~ Exp + Temp + p3_status + mid_status + p5_status
+~~~
+
+In simplified notation, the mean model is:
+
+~~~text
+log(mu_i) =
+  log(L_i) +
+  beta_0 +
+  beta_Exp +
+  beta_Temp +
+  beta_group
+~~~
+
+and the shape model is:
+
+~~~text
+log(phi_i) =
+  gamma_0 +
+  gamma_Exp +
+  gamma_Temp +
+  gamma_3prime +
+  gamma_mid +
+  gamma_5prime
 ~~~
 
 Reference levels are:
@@ -314,16 +331,21 @@ B10 and B27 contain mixtures of templates ST0-ST9 and therefore introduce templa
 
 For visualization, observed counts and posterior expected counts are converted to within-template proportions.
 
-For a given template,
+For each template:
 
-$$
-p_k
-=
-\frac{\mathrm{Count}_k}
-{\sum_j \mathrm{Count}_j}.
-$$
+~~~text
+observed proportion =
+  observed feature count /
+  total observed count within the template
+~~~
 
-Posterior expected counts are normalized in the same way.
+Posterior expected counts are normalized in the same way:
+
+~~~text
+predicted proportion =
+  posterior expected feature count /
+  total posterior expected count within the template
+~~~
 
 Observed and predicted proportions are compared using an identity line.
 
